@@ -1,0 +1,56 @@
+{
+  "name": "zoho-sprints-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "MCP server for Zoho Sprints - create, list and move work items from Claude Code, Claude Desktop and OpenAI Codex",
+  "author": "Shiva Srivastava",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shiva-srivastav/zoho-sprints-mcp.git"
+  },
+  "homepage": "https://github.com/shiva-srivastav/zoho-sprints-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/shiva-srivastav/zoho-sprints-mcp/issues"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "zoho",
+    "zoho-sprints",
+    "claude",
+    "codex"
+  ],
+  "main": "src/index.js",
+  "bin": {
+    "zoho-sprints-mcp": "src/index.js"
+  },
+  "files": [
+    "src/index.js",
+    "src/zoho.js",
+    "src/env.js",
+    "src/authorize.js",
+    "README.md",
+    ".env.example",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20.12"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "auth": "node src/authorize.js",
+    "selftest": "node src/selftest.js",
+    "probe": "node src/probe.js",
+    "batch": "node src/batch.js",
+    "client-config": "node scripts/client-config.js",
+    "check-secrets": "node scripts/check-secrets.js",
+    "hooks": "git config core.hooksPath .githooks",
+    "prepublishOnly": "node scripts/check-secrets.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.22.0",
+    "zod": "^3.25.76"
+  }
+}

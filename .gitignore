@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Credentials - never commit these
+.env
+.env.*
+!.env.example
+*.env
+.token-cache.json
+.token-cache.json.*
+*.tmp
+
+# Logs and OS noise
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# Editor / local client config that may hold machine-specific paths
+.vscode/
+.idea/
+.claude/settings.local.json
