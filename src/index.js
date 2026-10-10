@@ -365,7 +365,8 @@ server.registerTool(
         .optional()
         .describe(
           'Zoho system user ID(s) from list_users to assign the item to. Not the numeric ' +
-            'User ID shown in Sprints settings. Defaults to the API account.',
+            'User ID shown in Sprints settings. Defaults to ZOHO_DEFAULT_OWNER_ID; without it ' +
+            'Zoho leaves the item unassigned.',
         ),
       story_points: z.number().optional(),
       duration: z.number().optional().describe('Estimated hours.'),
@@ -389,6 +390,9 @@ server.registerTool(
       'ZOHO_DEFAULT_PRIORITY_ID',
     );
     const container = args.sprint_id ?? (await resolveBacklogId(teamId, projectId));
+    // Owners can only be set at creation: the update endpoint rejects every owner
+    // field, so an item created unassigned stays that way via the API.
+    const owners = args.owner_id ?? process.env.ZOHO_DEFAULT_OWNER_ID;
 
     // No `action` param here: adding one makes Zoho reject the URL with a 404.
     const data = await zoho.request({
@@ -401,9 +405,7 @@ server.registerTool(
         description: args.description,
         // `users` must be a JSON array even for a single assignee; a bare ID
         // is rejected with 400 "Given JSON is invalid".
-        users: args.owner_id
-          ? JSON.stringify(Array.isArray(args.owner_id) ? args.owner_id : [args.owner_id])
-          : undefined,
+        users: owners ? JSON.stringify(Array.isArray(owners) ? owners : [owners]) : undefined,
         point: args.story_points,
         duration: args.duration,
         startdate: args.start_date,

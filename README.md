@@ -81,6 +81,7 @@ ZOHO_PROJECT_ID=             # from list_projects (long number)
 ZOHO_DEFAULT_ITEM_TYPE_ID=   # from list_item_meta > itemTypes
 ZOHO_DEFAULT_PRIORITY_ID=    # from list_item_meta > priorities
 ZOHO_BACKLOG_ID=             # from list_sprints > backlogId
+ZOHO_DEFAULT_OWNER_ID=       # from list_users > your ownerId (assigns new items to you)
 ```
 
 Run `npm run selftest -- --live` again. Every tool should show `[OK]`.
@@ -168,6 +169,7 @@ Ask your AI:
 | `invalid_grant` | Token revoked. Redo Step 3. |
 | `Access Denied` | Too many requests. Wait a few minutes. |
 | `team_id is required` | Fill in `ZOHO_TEAM_ID` / `ZOHO_PROJECT_ID` in `.env`. |
+| New items show as Unassigned | Set `ZOHO_DEFAULT_OWNER_ID`. Zoho's API can only set owners when an item is created, not afterwards. |
 | Not connected | Run `node /ABS/PATH/src/index.js`. It should print `ready`. |
 | Claude Desktop shows no tools | Fully quit and reopen it. |
 

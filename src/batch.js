@@ -7,7 +7,7 @@
  * Options:
  *   --sprint <id>   target sprint; defaults to ZOHO_BACKLOG_ID
  *   --backlog       explicitly target the backlog
- *   --owner <id>    assignee system ID; defaults to the API account
+ *   --owner <id>    assignee system ID; defaults to ZOHO_DEFAULT_OWNER_ID, else unassigned
  *   --desc <text>   description applied to every item
  */
 import { clientFromEnv } from './zoho.js';
@@ -26,7 +26,7 @@ function opt(name) {
 
 const sprintOpt = opt('sprint');
 const backlogOpt = opt('backlog');
-const owner = opt('owner');
+const owner = opt('owner') ?? process.env.ZOHO_DEFAULT_OWNER_ID;
 const desc = opt('desc');
 const topics = argv.filter((a) => !a.startsWith('--'));
 
